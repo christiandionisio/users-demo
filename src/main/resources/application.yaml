@@ -1,3 +1,44 @@
 spring:
   application:
     name: users-demo
+  datasource:
+    url: jdbc:h2:mem:usersdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: users-demo
+    description: Demo Spring Boot que importa usuarios desde jsonplaceholder y los expone vía JWT.
+
+app:
+  security:
+    jwt:
+      secret: ${JWT_SECRET:Y2hhbmdlLW1lLXdpdGgtYS1zZWNyZXQtMzItYnl0ZXMtbWluaW11bS1mb3ItaHMyNTY=}
+      expiration-minutes: 60
+    user:
+      username: admin
+      password: admin123
+  jsonplaceholder:
+    base-url: https://jsonplaceholder.typicode.com
